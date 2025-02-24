@@ -14,7 +14,6 @@ export function LoginForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // ทำการเปลี่ยนหน้าไปยังหน้าอื่น เช่น หน้าแดชบอร์ด
     router.push("http://localhost:3000/");
   };
 
