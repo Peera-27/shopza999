@@ -27,7 +27,6 @@ export async function POST(req: Request) {
 
         const user = await User.create(userData)
 
-        // ส่งข้อมูลกลับโดยไม่รวมรหัสผ่าน
         const userResponse = user.toObject()
         delete userResponse.password
 

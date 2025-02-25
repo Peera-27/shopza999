@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -145,6 +146,12 @@ export default function Home() {
           <Button type="submit" className="w-full">
             สร้างผู้ใช้
           </Button>
+          <div className="text-center text-sm">
+            Do have an account?{" "}
+            <Link href="/login" className="border-black border-solid underline">
+              Sing in
+            </Link>
+          </div>
         </form>
       </div>
     </div>
