@@ -1,158 +1,120 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import Link from "next/link";
+import { useState } from "react";
 
-export default function Home() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    phonenumber: "",
-    location: "",
-  });
+export default function RegisterPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phonenumber, setPhonenumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [location, setLocation] = useState("");
+  const [error, setError] = useState("");
+  const [successfull, setSuccessfull] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (password != confirmpassword) {
+      setError("Password do not Match");
+      return;
+    }
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmpassword ||
+      !location ||
+      !phonenumber
+    ) {
+      setError("Please fill all fields");
+      return;
+    }
 
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "ไม่สามารถสร้างผู้ใช้ได้");
-      }
-
-      toast.success("สร้างผู้ใช้สำเร็จ!");
-      console.log("ข้อมูลผู้ใช้ที่สร้าง:", data);
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        phonenumber: "",
-        location: "",
-      });
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "ไม่สามารถสร้างผู้ใช้ได้"
-      );
+    const res = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, phonenumber, password, location }),
+    });
+    if (res.ok) {
+      const form = e.target as HTMLFormElement;
+      setError("");
+      setSuccessfull("Registration successful");
+      form.reset();
+    } else {
+      console.log("error");
     }
   };
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-md mx-auto bg-card p-6 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold mb-6">สร้างผู้ใช้ใหม่</h1>
+    <div>
+      <div className="container mx-auto py-4">
+        <h1>Register</h1>
+        <hr className="my-3" />
+        <form onSubmit={handleSubmit}>
+          {error && (
+            <div className="bg-red-500 w-fit text-white py-1 px-3 rounded-md mt-2">
+              {error}
+            </div>
+          )}
+          {successfull && (
+            <div className="bg-green-500 w-fit text-white py-1 px-3 rounded-md mt-2">
+              {successfull}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium mb-1"
-            >
-              ชื่อผู้ใช้
-            </label>
-            <Input
-              id="username"
-              value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
-              placeholder="กรุณากรอกชื่อผู้ใช้"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
-              อีเมล
-            </label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              placeholder="กรุณากรอกอีเมล"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium mb-1"
-            >
-              รหัสผ่าน
-            </label>
-            <Input
-              id="password"
-              type="password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-              placeholder="กรุณากรอกรหัสผ่าน"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="phonenumber"
-              className="block text-sm font-medium mb-1"
-            >
-              เบอร์โทรศัพท์
-            </label>
-            <Input
-              id="phonenumber"
-              type="tel"
-              value={formData.phonenumber}
-              onChange={(e) =>
-                setFormData({ ...formData, phonenumber: e.target.value })
-              }
-              placeholder="กรุณากรอกเบอร์โทรศัพท์"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="location"
-              className="block text-sm font-medium mb-1"
-            >
-              ที่อยู่
-            </label>
-            <Input
-              id="location"
-              value={formData.location}
-              onChange={(e) =>
-                setFormData({ ...formData, location: e.target.value })
-              }
-              placeholder="กรุณากรอกที่อยู่"
-            />
-          </div>
-
-          <Button type="submit" className="w-full">
-            สร้างผู้ใช้
-          </Button>
-          <div className="text-center text-sm">
-            Do have an account?{" "}
-            <Link href="/login" className="border-black border-solid underline">
-              Sing in
-            </Link>
-          </div>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="text"
+            placeholder="Username"
+          />
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="email"
+            placeholder="Email"
+          />
+          <input
+            onChange={(e) => setPhonenumber(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="text"
+            placeholder="Phonenumber"
+          />
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="password"
+            placeholder="Password"
+          />
+          <input
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <input
+            onChange={(e) => setLocation(e.target.value)}
+            className="block bg-gray-200 p-2 my-2 rounded-md"
+            type="text"
+            placeholder="Location"
+          />
+          <button
+            className="bg-green-500 p-2 rounded-md text-white"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
+        <hr className="my-3" />
+        <p>
+          Alreagy have an account{" "}
+          <Link className="text-black-500 hover:underline" href={"/login"}>
+            Sing in
+          </Link>
+        </p>
       </div>
     </div>
   );

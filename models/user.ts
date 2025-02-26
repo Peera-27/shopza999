@@ -1,7 +1,7 @@
-import { model, models, Schema } from "mongoose"
+import mongoose, { Schema } from "mongoose"
 
 const SchemaUser = new Schema({
-    username: {
+    name: {
         type: String,
         required: [true, 'กรุณากรอกชื่อผู้ใช้']
     },
@@ -10,7 +10,7 @@ const SchemaUser = new Schema({
         required: [true, 'กรุณากรอกรหัสผ่าน']
     },
     phonenumber: {
-        type: Number,
+        type: String,
         required: true
     },
     email: {
@@ -21,15 +21,13 @@ const SchemaUser = new Schema({
     location: {
         type: String,
         required: false
-    },
-    date: {
-        type: Date,
-        default: Date.now
+    }, role: {
+        type: String,
+        required: false,
+        default: "user"
     }
-}, {
-    collection: 'user',
-    timestamps: true, // เพิ่ม createdAt และ updatedAt
-    versionKey: false // ปิดการใช้งาน __v
-})
 
-export const User = models.user || model("user", SchemaUser)
+}, { timestamps: true })
+
+const User = mongoose.models.User || mongoose.model('User', SchemaUser)
+export default User
