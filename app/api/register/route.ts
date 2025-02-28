@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server"
 import bcrypt from "bcrypt"
-import { connectToDatabase } from "@/lib/monggoose"
+import { connectmongoDB } from "@/lib/monggoose"
 import User from "@/models/user"
 
-export async function POST(req) {
+export async function POST(req: Request) {
     try {
         const { name, email, phonenumber, password, location } = await req.json()
         const hash = await bcrypt.hash(password, 10)
 
-        await connectToDatabase()
+        await connectmongoDB()
 
 
         await User.create({ name, email, phonenumber, password: hash, location })

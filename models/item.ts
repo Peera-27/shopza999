@@ -2,9 +2,10 @@ import { model, models, Schema } from "mongoose"
 
 const ItemSchema = new Schema({
     name: String,
-    email: String,
-    item: String,
-    price: Number
-}, { collection: 'test' })
+    price: Number,
+    img: String
 
-export const Item = models.test || model("test", ItemSchema)
+}, { timestamps: true })
+
+const Item = models.Item || model("Item", ItemSchema)
+export default Item

@@ -7,7 +7,7 @@ const urlAtlas = `mongodb+srv://${username}:${password}@cluster0.tadbt.mongodb.n
 
 let isConnected = false
 
-export async function connectToDatabase() {
+export async function connectmongoDB() {
     if (isConnected) {
         console.log("Already connected to MongoDB")
         return

@@ -4,14 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; // ใช้ useRouter จาก next/navigation แทน next/router
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter(); // ใช้งาน useRouter จาก next/navigation
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!email || !password) {
+    if (!name || !password) {
       setError("Please fill all fields");
       return;
     }
@@ -19,17 +19,14 @@ export default function LoginPage() {
     const response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name: name, password }),
     });
 
     const data = await response.json();
 
-    console.log("API Response:", data);
-
     if (response.ok) {
       if (data.user && data.user.name) {
         localStorage.setItem("token", data.token);
-        alert(`Login success, welcome ${data.user.name}`);
         router.push("/");
       } else {
         setError("User data is missing or invalid.");
@@ -52,10 +49,10 @@ export default function LoginPage() {
           )}
 
           <input
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="email"
-            placeholder="Email"
+            type="text"
+            placeholder="Username"
           />
 
           <input
@@ -68,7 +65,7 @@ export default function LoginPage() {
           <button
             className="bg-green-500 p-2 rounded-md text-white"
             type="submit"
-            disabled={!email || !password} // ปิดปุ่ม Submit ถ้ากรอกข้อมูลไม่ครบ
+            disabled={!name || !password} // ปิดปุ่ม Submit ถ้ากรอกข้อมูลไม่ครบ
           >
             Login
           </button>

@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@/lib/monggoose"
+import { connectmongoDB } from "@/lib/monggoose"
 import User from "@/models/user"
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
@@ -7,13 +7,13 @@ import jwt from "jsonwebtoken"
 export async function POST(req: Request) {
     try {
         // เชื่อมต่อกับฐานข้อมูล
-        await connectToDatabase()
+        await connectmongoDB()
 
         // รับข้อมูลจาก client
-        const { email, password } = await req.json()
-
+        const { name, password } = await req.json()
+        console.log(name, password)
         // ค้นหาผู้ใช้ในฐานข้อมูล
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ name })
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 })
         }

@@ -3,11 +3,9 @@ import mongoose, { Schema } from "mongoose"
 const SchemaUser = new Schema({
     name: {
         type: String,
-        required: [true, 'กรุณากรอกชื่อผู้ใช้']
     },
     password: {
         type: String,
-        required: [true, 'กรุณากรอกรหัสผ่าน']
     },
     phonenumber: {
         type: String,
@@ -15,7 +13,6 @@ const SchemaUser = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'กรุณากรอกอีเมล'],
         unique: true
     },
     location: {
