@@ -15,8 +15,6 @@ export default function Header() {
 
   const listmenu = [
     { name: "Add Item", path: "/additem" },
-    { name: "Delete Item", path: "/deleteitem" },
-    { name: "Update Item", path: "/updateitem" },
     { name: "Login", path: "/login" },
     { name: "Regis", path: "/register" },
   ];
@@ -34,34 +32,7 @@ export default function Header() {
         </nav>
       )}
 
-      {/* คอมโพเนนต์ค้นหา */}
-      {showNav && <SearchItems />}
+      {showNav}
     </header>
-  );
-}
-
-function SearchItems() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const router = useRouter();
-
-  const handleSearch = () => {
-    if (searchTerm.trim() !== "") {
-      router.push(`/search?keyword=${encodeURIComponent(searchTerm)}`);
-    }
-  };
-
-  return (
-    <div className="flex gap-2">
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="ค้นหาสินค้า..."
-        className="border p-2 rounded"
-      />
-      <Button onClick={handleSearch} className="bg-blue-500 text-white">
-        ค้นหา
-      </Button>
-    </div>
   );
 }

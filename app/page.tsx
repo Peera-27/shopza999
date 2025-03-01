@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Deletebutton from "./components/delete";
 export default function Homepage() {
   const [products, setProducts] = useState([]);
   const getitem = async () => {
@@ -46,12 +47,7 @@ export default function Homepage() {
                 >
                   Edit
                 </Link>
-                <Link
-                  className="bg-red-500 border text-white px-3 py-2 rounded-md text-lg my-2"
-                  href={`/deleteitem/${item._id}`}
-                >
-                  Delete
-                </Link>
+                <Deletebutton id={item._id}></Deletebutton>
               </div>
             </div>
           ))
