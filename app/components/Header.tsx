@@ -16,17 +16,25 @@ export default function Header() {
   const listmenu = [
     { name: "Add Item", path: "/additem" },
     { name: "Login", path: "/login" },
-    { name: "Regis", path: "/register" },
+    { name: "Register", path: "/register" },
   ];
+  useEffect(() => {
+    if (pathname === "/login" || pathname === "/register") {
+        document.body.classList.add("hide-header");
+    } else {
+        document.body.classList.remove("hide-header");
+    }
+}, [pathname]);
 
   return (
-    <header className="p-4 border-b flex flex-col gap-4">
+    <header className="p-5 border-b flex flex-col gap-4 bg-[#E9762B]">
       {showNav && (
         // เมนูนำทาง
-        <nav className="flex gap-2">
+        <nav className="flex justify-end gap-2">
           {listmenu.map((menu, index) => (
             <Link key={index} href={menu.path}>
-              <Button variant="outline">{menu.name}</Button>
+              <Button className = "bg-[#fffe] border-white text-black hover:bg-[#d85b22] hover:text-white hover:border-[#d85b22]" 
+              variant="outline">{menu.name}</Button>
             </Link>
           ))}
         </nav>

@@ -56,7 +56,7 @@ export default function Homepage() {
 
             <div className="flex justify-between items-center mt-3">
               <Link
-                className="bg-[#F96E2A] hover:bg-[#d85b22] text-white px-3 py-1 rounded-md text-sm transition-all"
+                className="bg-[#F96E2A] hover:bg-[#d85b22] text-white px-4 py-3 rounded-md text-sm transition-all"
                 href={`/updateitem/${item._id}`}
               >
                 Edit

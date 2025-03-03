@@ -16,11 +16,13 @@ export default function Deletebutton({ id }) {
   };
 
   return (
+    // <div className="flex justify-between items-center">
     <button
       onClick={handleDelete}
-      className="bg-red-500 border text-white px-3 py-2 rounded-md text-lg my-2"
-    >
+      className="bg-[#D71313] hover:bg-[#7E1717] text-white px-3 py-3 rounded-md text-sm transition-all"
+      >
       Delete
     </button>
+      // </div>
   );
 }
