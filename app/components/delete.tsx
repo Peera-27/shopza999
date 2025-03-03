@@ -19,7 +19,7 @@ export default function Deletebutton({ id }) {
     // <div className="flex justify-between items-center">
     <button
       onClick={handleDelete}
-      className="bg-[#D71313] hover:bg-[#7E1717] text-white px-3 py-3 rounded-md text-sm transition-all"
+      className="bg-[#D71313] hover:bg-[#7E1717] text-white px-4 py-3 rounded-md text-sm transition-all"
       >
       Delete
     </button>
