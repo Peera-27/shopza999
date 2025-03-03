@@ -15,105 +15,83 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password != confirmpassword) {
-      setError("Password do not Match");
+    if (password !== confirmpassword) {
+      setError("Passwords do not match");
       return;
     }
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !confirmpassword ||
-      !location ||
-      !phonenumber
-    ) {
+    if (!name || !email || !password || !confirmpassword || !location || !phonenumber) {
       setError("Please fill all fields");
       return;
     }
 
     const res = await fetch("http://localhost:3000/api/register", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, phonenumber, password, location }),
     });
+
     if (res.ok) {
       const form = e.target as HTMLFormElement;
       setError("");
       setSuccessfull("Registration successful");
       form.reset();
     } else {
-      console.log("error");
+      setError("Registration failed");
     }
   };
 
   return (
-    <div>
-      <div className="container mx-auto py-4">
-        <h1>Register</h1>
-        <hr className="my-3" />
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-500 w-fit text-white py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
-          {successfull && (
-            <div className="bg-green-500 w-fit text-white py-1 px-3 rounded-md mt-2">
-              {successfull}
-            </div>
-          )}
+    <div className="min-h-screen flex items-center justify-center bg-[#FBF8EF]">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-[400px]">
+        <h1 className="text-center text-xl font-semibold text-[#F96E2A]">Register</h1>
+        <hr className="my-4" />
 
-          <input
+        {error && <div className="bg-red-500 text-white text-center py-2 rounded-md">{error}</div>}
+        {successfull && <div className="bg-green-500 text-white text-center py-2 rounded-md">{successfull}</div>}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input 
             onChange={(e) => setName(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="text"
-            placeholder="Username"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="text" placeholder="Username"
           />
-          <input
+          <input 
             onChange={(e) => setEmail(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="email"
-            placeholder="Email"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="email" placeholder="Email"
           />
-          <input
+          <input 
             onChange={(e) => setPhonenumber(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="text"
-            placeholder="Phonenumber"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="text" placeholder="Phone Number"
           />
-          <input
+          <input 
             onChange={(e) => setPassword(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="password"
-            placeholder="Password"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="password" placeholder="Password"
           />
-          <input
+          <input 
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="password"
-            placeholder="Confirm Password"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="password" placeholder="Confirm Password"
           />
-          <input
+          <input 
             onChange={(e) => setLocation(e.target.value)}
-            className="block bg-gray-200 p-2 my-2 rounded-md"
-            type="text"
-            placeholder="Location"
+            className="w-full p-2 border rounded-md bg-[#C9E6F0] placeholder-gray-600"
+            type="text" placeholder="Location"
           />
+
           <button
-            className="bg-green-500 p-2 rounded-md text-white"
+            className="w-full bg-[#F96E2A] text-white p-2 rounded-md hover:bg-[#d85b1e] transition"
             type="submit"
           >
             Register
           </button>
         </form>
-        <hr className="my-3" />
-        <p>
-          Alreagy have an account{" "}
-          <Link className="text-black-500 hover:underline" href={"/login"}>
-            Sing in
-          </Link>
+
+        <p className="text-center text-gray-600 mt-4">
+          Already have an account? 
+          <Link href="/login" className="text-[#78B3CE] hover:underline ml-1">Sign in</Link>
         </p>
       </div>
     </div>
