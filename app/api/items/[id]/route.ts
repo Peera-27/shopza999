@@ -3,23 +3,23 @@ import Item from "@/models/item"
 import { connectmongoDB } from "@/lib/monggoose"
 import mongoose from "mongoose"
 
-export async function GET(req: NextRequest, context: Promise<{ params: { id: string } }>) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const { params } = await context // ✅ ต้อง await
-        const itemId = params?.id
+        const { id } = params
+
 
         console.log("Params:", params) // 🛠 Debugging
 
-        if (!itemId) {
+        if (!id) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
-        if (!mongoose.Types.ObjectId.isValid(itemId)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json({ error: "Invalid ObjectId format" }, { status: 400 })
         }
 
         await connectmongoDB()
-        const post = await Item.findById(new mongoose.Types.ObjectId(itemId)).lean()
+        const post = await Item.findById(new mongoose.Types.ObjectId(id)).lean()
 
         if (!post) {
             return NextResponse.json({ error: "Item not found" }, { status: 404 })
