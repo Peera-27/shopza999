@@ -31,7 +31,7 @@ export default function UpdateItempage({ params }: { params: Params }) {
   };
   useEffect(() => {
     getpostbyid(itemId);
-  }, []);
+  }, [itemId]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
