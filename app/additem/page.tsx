@@ -69,7 +69,7 @@ export default function CreateItempage() {
         <input
           onChange={handleImageChange}
           type="file"
-          className="w-[300px] block mb-2 bg-gray-200 border border-gray-400 text-gray-900 py-2 px-3 rounded-xl text-lg my-22"
+          className="w-[300px] block mb-2 bg-gray-200 border border-gray-400 text-gray-900 py-2 px-3 rounded-xl text-lg my-2"
           placeholder="img url"
         />
         <input

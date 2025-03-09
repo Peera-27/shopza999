@@ -66,11 +66,12 @@ export default function UpdateItempage({ params }) {
   };
   return (
     <div className="container mx-auto py-10">
-      <h3 className="text-3xl font-bold">Edit Product</h3>
+      <h3 className="text-[60px] font-extrabold bg-gradient-to-r 
+      from-orange-600 to-purple-600 text-transparent bg-clip-text ">Edit Product</h3>
       <hr className="my-3" />
       <Link
         href={"/"}
-        className="bg-gray-500 inline-block text-white  py-2 px-3 rounded my-2"
+        className="bg-[#FF165D] hover:bg-[#7E1717] inline-block text-white  py-2 px-2 rounded-md text-md transiton-all my-2"
       >
         Go back
       </Link>
@@ -78,24 +79,24 @@ export default function UpdateItempage({ params }) {
         <input
           onChange={(e) => setnewname(e.target.value)}
           type="text"
-          className="w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2"
+          className="w-[300px] block mb-2 bg-gray-200 border border-gray-400 text-gray-900 py-2 px-3 rounded-xl text-lg my-2"
           placeholder={item.name}
         />
         <input
           onChange={handleImageChange}
           type="file"
-          className="w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2"
+          className="w-[300px] block mb-2 bg-gray-200 border border-gray-400 text-gray-900 py-2 px-3 rounded-xl text-lg my-2"
           placeholder={item.image}
         />
         <input
           onChange={(e) => setnewprice(e.target.value)}
           type="number"
-          className="w-[300px] block bg-gray-200 border py-2 px-3 rounded text-lg my-2"
+          className="w-[300px] block mb-2 bg-gray-200 border border-gray-400 text-gray-900 py-2 px-3 rounded-xl text-lg my-2"
           placeholder={item.price}
         />
         <button
           type="submit"
-          className="bg-green-500 py-2 px-3 rounded text-lg my-2"
+          className="bg-[#3EC1D3] hover:bg-[#00ADB5] text-[#F6F7D7] py-2 px-4 rounded-md text-lg transition-all my-3"
         >
           Edit Product
         </button>

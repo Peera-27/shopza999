@@ -33,18 +33,18 @@ export default function Homepage() {
   }, []);
   return (
     <div className="min-h-screen bg-[#ffffff] px-4 py-5">
-      <h1 className="text-[60px] font-extrabold text-center 
-      text-[#78B3CE] ">
+      <h1 className="text-[70px] font-extrabold text-center bg-gradient-to-tr
+       from-orange-300 to-[#E9762B] text-transparent bg-clip-text">
         🛒 Shopza999
       </h1>
-      <hr className="my-4 border-[#78B3CE]" />
+      <hr className="my-4 border-[#E9762B]" />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {products && products.length > 0 ? (
           products.map((item) => (
             <div
               key={item._id}
-              className="bg-[#C9E6F0] border border-[#78B3CE] rounded-lg p-3 shadow-md hover:shadow-xl transition-all"
+              className="bg-orange-50 border border-[#d85b22] rounded-lg p-3 shadow-md hover:shadow-xl transition-all"
             >
               <div className="relative w-full h-40">
                 <Image
@@ -55,7 +55,7 @@ export default function Homepage() {
                   alt={item.name}
                 />
               </div>
-              <h3 className="text-md font-semibold mt-2 text-teal-600 line-clamp-2">
+              <h3 className="text-lg font-semibold mt-2 text-teal-600 line-clamp-2">
                 {item.name}
               </h3>
               <p className="text-lg font-bold text-[#F96E2A] mt-1">
@@ -64,7 +64,7 @@ export default function Homepage() {
 
               <div className="flex justify-between items-center mt-3">
                 <Link
-                  className="bg-[#F96E2A] hover:bg-[#d85b22] text-white px-4 py-3 rounded-md text-sm transition-all"
+                  className="bg-[#E9762B] hover:bg-[#d85b22] text-white px-4 py-3 rounded-md text-sm transition-all"
                   href={`/updateitem/${item._id}`}
                 >
                   Edit
