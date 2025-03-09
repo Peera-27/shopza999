@@ -37,7 +37,7 @@ export default function Header() {
         <nav className="flex justify-end gap-2">
           {listmenu.map((menu, index) => (
             <Link key={index} href={menu.path}>
-              <Button className = "bg-transparent text-white text-lg font-semibold hover:underline hover:text-orange-200 transition-all duration-300" 
+              <Button className = "relative text-white text-lg font-semibold after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full" 
               variant="ghost">{menu.name}</Button>
             </Link>
           ))}
