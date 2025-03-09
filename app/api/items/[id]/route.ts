@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server"
 
 // ใช้ type RouteContext ตามโครงสร้างที่ Next.js ต้องการ
 
-export async function GET(req: NextRequest, params) {
+export async function GET(req: NextRequest, params: string) {
     try {
         const itemId = params.id // ✅ ใช้ params.id ตรงๆ
         await connectmongoDB()
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, params) {
     }
 }
 
-export async function PUT(req: NextRequest, params) {
+export async function PUT(req: NextRequest, params: string) {
     try {
         const itemId = params.id
         const { newname: name, newimage: image, newprice: price } = await req.json()
@@ -40,7 +40,7 @@ export async function PUT(req: NextRequest, params) {
     }
 }
 
-export async function DELETE(req: NextRequest, params) {
+export async function DELETE(req: NextRequest, params: string) {
     try {
         const itemId = params.id
         console.log("Deleting item with ID:", itemId)
