@@ -1,17 +1,20 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-export default function UpdateItempage({ params }) {
-  const getidformparams = use(params);
-  const itemId = getidformparams.id;
-  const [item, setItem] = useState("");
+interface Params {
+  id: string;
+}
+
+export default function UpdateItempage({ params }: { params: Params }) {
+  const itemId = params.id;
+  const [item, setItem] = useState({ name: "", image: "", price: "" });
   const [newname, setnewname] = useState("");
   const [newimage, setnewimage] = useState("");
   const [newprice, setnewprice] = useState("");
   const router = useRouter();
 
-  const getpostbyid = async (itemId) => {
+  const getpostbyid = async (itemId: string) => {
     try {
       const res = await fetch(`/api/items/${itemId}`, {
         method: "GET",
@@ -66,8 +69,12 @@ export default function UpdateItempage({ params }) {
   };
   return (
     <div className="container mx-auto py-10">
-      <h3 className="text-[60px] font-extrabold bg-gradient-to-r 
-      from-orange-600 to-purple-600 text-transparent bg-clip-text ">Edit Product</h3>
+      <h3
+        className="text-[60px] font-extrabold bg-gradient-to-r 
+      from-orange-600 to-purple-600 text-transparent bg-clip-text "
+      >
+        Edit Product
+      </h3>
       <hr className="my-3" />
       <Link
         href={"/"}
