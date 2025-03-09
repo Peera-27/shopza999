@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import Item from "@/models/item"
-import { connectmongoDB } from "@/lib/monggoose"
+import connectmongoDB from "@/libs/mongodb" // ✅ ตรวจสอบให้แน่ใจว่าพาธถูกต้อง
 
-type RouteContext = { params: Record<string, string> }
-
-export async function GET(req: NextRequest, { params }: RouteContext) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id
+        const itemId = context.params.id
         if (!itemId) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
@@ -25,11 +23,15 @@ export async function GET(req: NextRequest, { params }: RouteContext) {
     }
 }
 
-export async function PUT(req: NextRequest, { params }: RouteContext) {
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id
+        const itemId = context.params.id
         if (!itemId) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+        }
+
+        if (req.headers.get("content-type") !== "application/json") {
+            return NextResponse.json({ error: "Invalid request format" }, { status: 400 })
         }
 
         const { newTitle: title, newPrice: price, newDescription: description } = await req.json()
@@ -43,9 +45,9 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteContext) {
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id
+        const itemId = context.params.id
         if (!itemId) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
