@@ -40,8 +40,8 @@ export default function Header() {
           {listmenu.map((menu, index) => (
             <Link key={index} href={menu.path}>
               <Button
-                className="bg-[#fffe] border-white text-black hover:bg-[#d85b22] hover:text-white hover:border-[#d85b22]"
-                variant="outline"
+                className="bg-transparent text-white text-lg font-semibold hover:underline hover:text-orange-200 transition-all duration-300"
+                variant="ghost"
               >
                 {menu.name}
               </Button>
