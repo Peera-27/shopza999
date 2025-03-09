@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 // import { RequestContext } from "next/server" // ⬅️ ใช้ RequestContext 
 
 // 🔹 GET ITEM BY ID
-export async function GET(req: NextRequest, context: unknown) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
     try {
         const itemId = context.params?.id
 
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, context: unknown) {
 }
 
 // 🔹 UPDATE ITEM BY ID
-export async function PUT(req: NextRequest, context: unknown) {
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
     try {
         console.log("Params:", context.params) // 🛠 Debugging
 
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest, context: unknown) {
 }
 
 // 🔹 DELETE ITEM BY ID
-export async function DELETE(req: NextRequest, context: unknown) {
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
     try {
         console.log("Params:", context.params) // 🛠 Debugging
 
