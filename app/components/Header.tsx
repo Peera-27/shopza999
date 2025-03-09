@@ -27,7 +27,8 @@ export default function Header() {
 }, [pathname]);
 
   return (
-    <header className="p-5 border-b flex flex-col gap-4 bg-[#E9762B]">
+    <header className="p-5 border-b flex flex-col gap-4 
+    bg-gradient-to-r from-[#E9762B] to-orange-300 ">
       {showNav && (
         // เมนูนำทาง
         <nav className="flex justify-end gap-2">

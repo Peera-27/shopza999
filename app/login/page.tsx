@@ -39,7 +39,8 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#FBF8EF]">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl">
-        <h1 className="text-2xl font-bold text-center text-[#F96E2A]">Login</h1>
+        <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r 
+        from-[#F96E2A] to-orange-300 text-transparent bg-clip-text">Login</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           {error && (
             <div className="bg-red-500 text-white py-2 px-4 rounded-md">
@@ -59,7 +60,7 @@ export default function LoginPage() {
             placeholder="Password"
           />
           <button
-            className="w-full p-3 text-white bg-[#F96E2A] rounded-md hover:bg-[#d85b1e]"
+            className="w-full p-3 bg-[#F96E2A] border text-white rounded-md hover:bg-orange-400 hover:border-[#F96E2A] transition-all"
             type="submit"
             disabled={!name || !password}
           >

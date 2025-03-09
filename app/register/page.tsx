@@ -43,7 +43,8 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FBF8EF]">
       <div className="bg-white p-8 rounded-xl shadow-lg w-[400px]">
-        <h1 className="text-center text-xl font-semibold text-[#F96E2A]">Register</h1>
+        <h1 className="text-center text-3xl font-extrabold 
+        bg-gradient-to-l from-[#F96E2A] to-orange-200 text-transparent bg-clip-text">Register</h1>
         <hr className="my-4" />
 
         {error && <div className="bg-red-500 text-white text-center py-2 rounded-md">{error}</div>}
@@ -82,7 +83,7 @@ export default function RegisterPage() {
           />
 
           <button
-            className="w-full bg-[#F96E2A] text-white p-2 rounded-md hover:bg-[#d85b1e] transition"
+            className="w-full p-2 bg-[#F96E2A] border text-white rounded-md hover:bg-orange-400 hover:border-[#F96E2A] h transition-all"
             type="submit"
           >
             Register
