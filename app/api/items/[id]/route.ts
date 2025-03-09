@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import Item from "@/models/item"
-import connectmongoDB from "@/libs/mongodb" // ✅ ตรวจสอบให้แน่ใจว่าพาธถูกต้อง
+import { connectmongoDB } from "@/lib/monggoose"
 
 export async function GET(req: NextRequest, context: { params: { id: string } }) {
     try {
