@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
-const username = process.env.MONGO_USER
-const password = process.env.MONGO_PASSWORD
+const username = process.env.mongo_user
+const password = process.env.mongo_password
 const dbName = "shopza999"
 const urlAtlas = `mongodb+srv://${username}:${password}@cluster0.tadbt.mongodb.net/${dbName}?retryWrites=true&w=majority`
 
