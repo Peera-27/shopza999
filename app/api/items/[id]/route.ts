@@ -2,11 +2,9 @@ import { connectmongoDB } from "@/lib/monggoose"
 import Item from "@/models/item"
 import { NextResponse, NextRequest } from "next/server"
 
-// ใช้ type RouteContext ตามโครงสร้างที่ Next.js ต้องการ
-
-export async function GET(req: NextRequest, params: string) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const itemId = params.id // ✅ ใช้ params.id ตรงๆ
+        const itemId = params.id
         await connectmongoDB()
         const post = await Item.findById(itemId).lean() // เพิ่ม lean() เพื่อให้ Query เร็วขึ้น
 
@@ -21,7 +19,7 @@ export async function GET(req: NextRequest, params: string) {
     }
 }
 
-export async function PUT(req: NextRequest, params: string) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const itemId = params.id
         const { newname: name, newimage: image, newprice: price } = await req.json()
@@ -40,7 +38,7 @@ export async function PUT(req: NextRequest, params: string) {
     }
 }
 
-export async function DELETE(req: NextRequest, params: string) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const itemId = params.id
         console.log("Deleting item with ID:", itemId)
