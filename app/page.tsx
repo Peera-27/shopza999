@@ -33,7 +33,8 @@ export default function Homepage() {
   }, []);
   return (
     <div className="min-h-screen bg-[#ffffff] px-4 py-5">
-      <h1 className="text-4xl font-bold text-center text-[#78B3CE]">
+      <h1 className="text-[60px] font-extrabold text-center 
+      text-[#78B3CE] ">
         🛒 Shopza999
       </h1>
       <hr className="my-4 border-[#78B3CE]" />
@@ -54,7 +55,7 @@ export default function Homepage() {
                   alt={item.name}
                 />
               </div>
-              <h3 className="text-md font-semibold mt-2 text-[#78B3CE] line-clamp-2">
+              <h3 className="text-md font-semibold mt-2 text-teal-600 line-clamp-2">
                 {item.name}
               </h3>
               <p className="text-lg font-bold text-[#F96E2A] mt-1">
