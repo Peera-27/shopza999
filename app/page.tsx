@@ -33,10 +33,7 @@ export default function Homepage() {
   }, []);
   return (
     <div className="min-h-screen bg-[#ffffff] px-4 py-5">
-      <h1 className="text-[70px] font-extrabold text-center bg-gradient-to-tr
-       from-orange-300 to-[#E9762B] text-transparent bg-clip-text">
-        🛒 Shopza999
-      </h1>
+      
       <hr className="my-4 border-[#E9762B]" />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

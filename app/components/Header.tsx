@@ -28,14 +28,17 @@ export default function Header() {
 
   return (
     <header className="p-5 border-b flex flex-col gap-4 
-    bg-gradient-to-r from-[#E9762B] to-orange-300 ">
+  bg-gradient-to-r from-[#E9762B] to-orange-300 
+  text-white text-center text-4xl md:text-6xl lg:text-[70px] font-extrabold
+  shadow-lg drop-shadow-xl">
+      🛒 Shopza999
       {showNav && (
         // เมนูนำทาง
         <nav className="flex justify-end gap-2">
           {listmenu.map((menu, index) => (
             <Link key={index} href={menu.path}>
-              <Button className = "bg-[#fffe] border-white text-black hover:bg-[#d85b22] hover:text-white hover:border-[#d85b22]" 
-              variant="outline">{menu.name}</Button>
+              <Button className = "bg-transparent text-white text-lg font-semibold hover:underline hover:text-orange-200 transition-all duration-300" 
+              variant="ghost">{menu.name}</Button>
             </Link>
           ))}
         </nav>
