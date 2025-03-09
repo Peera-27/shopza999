@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 interface Params {
@@ -7,15 +7,20 @@ interface Params {
 }
 
 export default function Search({ params }: { params: Params }) {
-  const getidformparams = use(params);
-  const itemId = getidformparams.id;
-  const [item, setItem] = useState([]);
+  const itemId = params.id;
+  interface Item {
+    name: string;
+    img?: string;
+    price: number;
+  }
+
+  const [item, setItem] = useState<Item | null>(null);
 
   useEffect(() => {
     getbyid(itemId);
   }, [itemId]);
 
-  const getbyid = async (id) => {
+  const getbyid = async (id: string) => {
     try {
       const res = await fetch(`/api/items/${id}`, {
         method: "GET",
