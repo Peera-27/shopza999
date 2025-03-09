@@ -2,7 +2,10 @@ import { connectmongoDB } from "@/lib/monggoose"
 import Item from "@/models/item"
 import { NextResponse, NextRequest } from "next/server"
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const itemId = params.id
         await connectmongoDB()
@@ -19,7 +22,10 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const itemId = params.id
         const { newname: name, newimage: image, newprice: price } = await req.json()
@@ -38,7 +44,10 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const itemId = params.id
         console.log("Deleting item with ID:", itemId)
