@@ -1,12 +1,13 @@
 import { connectmongoDB } from "@/lib/monggoose"
 import Item from "@/models/item"
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
+// Removed RouteContext import as it is not exported from "next"
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id // ✅ ใช้ params ตรงๆ ไม่ต้อง await
+        const itemId = context.params.id // ✅ ใช้ context.params
         await connectmongoDB()
-        const post = await Item.findOne({ _id: itemId })
+        const post = await Item.findById(itemId)
 
         if (!post) {
             return NextResponse.json({ error: "Item not found" }, { status: 404 })
@@ -19,9 +20,9 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id // ✅ ใช้ params ตรงๆ
+        const itemId = context.params.id
         const { newname: name, newimage: image, newprice: price } = await req.json()
         await connectmongoDB()
         const updatedItem = await Item.findByIdAndUpdate(itemId, { name, image, price })
@@ -33,14 +34,14 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         return NextResponse.json({ message: "Item updated" }, { status: 200 })
     } catch (error) {
         console.error("Error editing item", error)
-        return NextResponse.json({ error: "Failed to update item" }, { status: 500 }) // ✅ Return error response
+        return NextResponse.json({ error: "Failed to update item" }, { status: 500 })
     }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const itemId = params.id
-        console.log("Deleting item with ID:", itemId) // ✅ Debug จุดนี้
+        const itemId = context.params.id
+        console.log("Deleting item with ID:", itemId)
 
         if (!itemId) {
             return NextResponse.json({ error: "Missing ID" }, { status: 400 })
