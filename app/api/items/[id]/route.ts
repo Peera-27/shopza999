@@ -1,13 +1,17 @@
 import { connectmongoDB } from "@/lib/monggoose"
 import Item from "@/models/item"
-import { NextResponse, NextRequest } from "next/server"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
-export async function GET(
-    req: NextRequest,
-    { params }: { params: { id: string } }
-) {
+type RouteParams = {
+    params: {
+        id: string
+    }
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
     try {
-        const itemId = params.id
+        const itemId = context.params.id
         await connectmongoDB()
         const post = await Item.findById(itemId).lean() // เพิ่ม lean() เพื่อให้ Query เร็วขึ้น
 
@@ -22,13 +26,10 @@ export async function GET(
     }
 }
 
-export async function PUT(
-    req: NextRequest,
-    { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, context: RouteParams) {
     try {
-        const itemId = params.id
-        const { newname: name, newimage: image, newprice: price } = await req.json()
+        const itemId = context.params.id
+        const { newname: name, newimage: image, newprice: price } = await request.json()
 
         await connectmongoDB()
         const updatedItem = await Item.findByIdAndUpdate(itemId, { name, image, price }, { new: true }).lean()
@@ -44,12 +45,9 @@ export async function PUT(
     }
 }
 
-export async function DELETE(
-    req: NextRequest,
-    { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
     try {
-        const itemId = params.id
+        const itemId = context.params.id
         console.log("Deleting item with ID:", itemId)
 
         if (!itemId) {
