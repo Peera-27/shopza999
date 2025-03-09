@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
-export default function Deletebutton({ id }) {
+interface DeleteButtonProps {
+  id: string;
+}
+
+export default function Deletebutton({ id }: DeleteButtonProps) {
   const handleDelete = async () => {
     const confirmed = confirm("Are you sure you want to delete this item?");
     if (confirmed) {
@@ -20,9 +24,9 @@ export default function Deletebutton({ id }) {
     <button
       onClick={handleDelete}
       className="bg-[#D71313] hover:bg-[#7E1717] text-white px-4 py-3 rounded-md text-sm transition-all"
-      >
+    >
       Delete
     </button>
-      // </div>
+    // </div>
   );
 }

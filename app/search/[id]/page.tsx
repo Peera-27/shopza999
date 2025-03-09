@@ -2,7 +2,11 @@
 import React, { useEffect, useState, use } from "react";
 import Image from "next/image";
 
-export default function Search({ params }) {
+interface Params {
+  id: string;
+}
+
+export default function Search({ params }: { params: Params }) {
   const getidformparams = use(params);
   const itemId = getidformparams.id;
   const [item, setItem] = useState([]);
