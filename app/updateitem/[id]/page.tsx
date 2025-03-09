@@ -2,11 +2,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-interface Params {
-  id: string;
-}
 
-export default function UpdateItempage({ params }: { params: Params }) {
+export default function UpdateItempage(params) {
   const itemId = params.id;
   const [item, setItem] = useState({ name: "", image: "", price: "" });
   const [newname, setnewname] = useState("");
