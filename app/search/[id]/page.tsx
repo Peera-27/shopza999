@@ -2,11 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-interface Params {
-  id: string;
-}
-
-export default function Search({ params }: { params: Params }) {
+export default function Search(params) {
   const itemId = params.id;
   interface Item {
     name: string;
