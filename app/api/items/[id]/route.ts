@@ -1,15 +1,18 @@
-import { connectmongoDB } from "@/lib/monggoose"
+import { NextRequest, NextResponse } from "next/server"
 import Item from "@/models/item"
-import { NextResponse, NextRequest } from "next/server"
+import { connectmongoDB } from "@/lib/monggoose"
 
-// ใช้ type RouteContext ตามโครงสร้างที่ Next.js ต้องการ
-type RouteContext = { params: { id: string } }
+type RouteContext = { params: Record<string, string> }
 
 export async function GET(req: NextRequest, { params }: RouteContext) {
     try {
-        const itemId = params.id // ✅ ใช้ params.id ตรงๆ
+        const itemId = params.id
+        if (!itemId) {
+            return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+        }
+
         await connectmongoDB()
-        const post = await Item.findById(itemId).lean() // เพิ่ม lean() เพื่อให้ Query เร็วขึ้น
+        const post = await Item.findById(itemId).lean()
 
         if (!post) {
             return NextResponse.json({ error: "Item not found" }, { status: 404 })
@@ -25,16 +28,15 @@ export async function GET(req: NextRequest, { params }: RouteContext) {
 export async function PUT(req: NextRequest, { params }: RouteContext) {
     try {
         const itemId = params.id
-        const { newname: name, newimage: image, newprice: price } = await req.json()
-
-        await connectmongoDB()
-        const updatedItem = await Item.findByIdAndUpdate(itemId, { name, image, price }, { new: true }).lean()
-
-        if (!updatedItem) {
-            return NextResponse.json({ error: "Item not found" }, { status: 404 })
+        if (!itemId) {
+            return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
-        return NextResponse.json({ message: "Item updated", item: updatedItem }, { status: 200 })
+        const { newTitle: title, newPrice: price, newDescription: description } = await req.json()
+        await connectmongoDB()
+        await Item.findByIdAndUpdate(itemId, { title, price, description })
+
+        return NextResponse.json({ message: "Item updated" }, { status: 200 })
     } catch (error) {
         console.error("Error updating item:", error)
         return NextResponse.json({ error: "Failed to update item" }, { status: 500 })
@@ -44,18 +46,12 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
 export async function DELETE(req: NextRequest, { params }: RouteContext) {
     try {
         const itemId = params.id
-        console.log("Deleting item with ID:", itemId)
-
         if (!itemId) {
-            return NextResponse.json({ error: "Missing ID" }, { status: 400 })
+            return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
         await connectmongoDB()
-        const deletedItem = await Item.findByIdAndDelete(itemId).lean()
-
-        if (!deletedItem) {
-            return NextResponse.json({ error: "Item not found" }, { status: 404 })
-        }
+        await Item.findByIdAndDelete(itemId)
 
         return NextResponse.json({ message: "Item deleted" }, { status: 200 })
     } catch (error) {
