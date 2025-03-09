@@ -3,23 +3,19 @@ import Item from "@/models/item"
 import { connectmongoDB } from "@/lib/monggoose"
 import mongoose from "mongoose"
 
+// 🔹 GET ITEM BY ID
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const { id } = params
 
-
         console.log("Params:", params) // 🛠 Debugging
 
-        if (!id) {
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return NextResponse.json({ error: "Invalid ObjectId format" }, { status: 400 })
-        }
-
         await connectmongoDB()
-        const post = await Item.findById(new mongoose.Types.ObjectId(id)).lean()
+        const post = await Item.findById(id).lean()
 
         if (!post) {
             return NextResponse.json({ error: "Item not found" }, { status: 404 })
@@ -32,13 +28,13 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(req: NextRequest, context: { params?: { id?: string } }) {
+// 🔹 UPDATE ITEM BY ID
+export async function PUT(req: NextRequest, { params }: { params: { id?: string } }) {
     try {
-        console.log("Params:", context.params) // 🛠 Debugging
+        console.log("Params:", params) // 🛠 Debugging
 
-        const { params } = await context // ✅ ต้อง await
         const itemId = params?.id
-        if (!itemId) {
+        if (!itemId || !mongoose.Types.ObjectId.isValid(itemId)) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
@@ -57,13 +53,13 @@ export async function PUT(req: NextRequest, context: { params?: { id?: string } 
     }
 }
 
-export async function DELETE(req: NextRequest, context: { params?: { id?: string } }) {
+// 🔹 DELETE ITEM BY ID
+export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
     try {
-        console.log("Params:", context.params) // 🛠 Debugging
+        console.log("Params:", params) // 🛠 Debugging
 
-        const { params } = await context // ✅ ต้อง await
         const itemId = params?.id
-        if (!itemId) {
+        if (!itemId || !mongoose.Types.ObjectId.isValid(itemId)) {
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
         }
 
