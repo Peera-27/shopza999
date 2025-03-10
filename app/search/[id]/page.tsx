@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, use } from "react";
 import Image from "next/image";
 
-export default async function Search({
+export default function Search({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { itemId } = await params;
+  const { itemId } = use(params);
   interface Item {
     name: string;
     img?: string;

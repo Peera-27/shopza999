@@ -1,14 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default async function UpdateItempage({
+export default function UpdateItempage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { itemId } = await params;
+  const { itemId } = use(params);
   const [item, setItem] = useState({ name: "", image: "", price: "" });
   const [newname, setnewname] = useState("");
   const [newimage, setnewimage] = useState("");
