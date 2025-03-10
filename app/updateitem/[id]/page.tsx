@@ -3,12 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function UpdateItempage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { itemId } = await params;
+export default function UpdateItempage({ params }: { params: { id: string } }) {
+  const itemId = params.id;
   const [item, setItem] = useState({ name: "", image: "", price: "" });
   const [newname, setnewname] = useState("");
   const [newimage, setnewimage] = useState("");
