@@ -1,17 +1,15 @@
 import { connectmongoDB } from "@/lib/monggoose"
 import Item from "@/models/item"
 import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
 
-type RouteParams = {
-    params: {
-        id: string
-    }
-}
 
-export async function GET(request: NextRequest, context: RouteParams) {
+
+export async function GET(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const itemId = context.params.id
+        const { itemId } = await params
         await connectmongoDB()
         const post = await Item.findById(itemId).lean() // เพิ่ม lean() เพื่อให้ Query เร็วขึ้น
 
@@ -26,9 +24,12 @@ export async function GET(request: NextRequest, context: RouteParams) {
     }
 }
 
-export async function PUT(request: NextRequest, context: RouteParams) {
+export async function PUT(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const itemId = context.params.id
+        const { itemId } = await params
         const { newname: name, newimage: image, newprice: price } = await request.json()
 
         await connectmongoDB()
@@ -45,9 +46,12 @@ export async function PUT(request: NextRequest, context: RouteParams) {
     }
 }
 
-export async function DELETE(request: NextRequest, context: RouteParams) {
+export async function DELETE(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const itemId = context.params.id
+        const { itemId } = await params
         console.log("Deleting item with ID:", itemId)
 
         if (!itemId) {
