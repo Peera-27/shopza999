@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Search({ params }: { params: { id: string } }) {
-  const itemId = params.id;
+export default async function Search({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { itemId } = await params;
   interface Item {
     name: string;
     img?: string;
