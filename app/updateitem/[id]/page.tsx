@@ -8,7 +8,7 @@ export default function UpdateItempage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { itemId } = use(params);
+  const itemId = use(params);
   const [item, setItem] = useState({ name: "", image: "", price: "" });
   const [newname, setnewname] = useState("");
   const [newimage, setnewimage] = useState("");
@@ -31,7 +31,7 @@ export default function UpdateItempage({
     }
   };
   useEffect(() => {
-    getpostbyid(itemId);
+    getpostbyid(itemId.id);
   }, [itemId]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

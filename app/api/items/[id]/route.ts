@@ -9,7 +9,7 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { itemId } = await params
+        const itemId = await params
         await connectmongoDB()
         const post = await Item.findById(itemId).lean() // เพิ่ม lean() เพื่อให้ Query เร็วขึ้น
 
@@ -29,7 +29,7 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { itemId } = await params
+        const itemId = await params
         const { newname: name, newimage: image, newprice: price } = await request.json()
 
         await connectmongoDB()
@@ -51,7 +51,7 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { itemId } = await params
+        const itemId = await params
         console.log("Deleting item with ID:", itemId)
 
         if (!itemId) {

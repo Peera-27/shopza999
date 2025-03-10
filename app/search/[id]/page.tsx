@@ -7,7 +7,7 @@ export default function Search({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { itemId } = use(params);
+  const itemId = use(params);
   interface Item {
     name: string;
     img?: string;
@@ -17,7 +17,7 @@ export default function Search({
   const [item, setItem] = useState<Item | null>(null);
 
   useEffect(() => {
-    getbyid(itemId);
+    getbyid(itemId.id);
   }, [itemId]);
 
   const getbyid = async (id: string) => {
